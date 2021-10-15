@@ -1,0 +1,71 @@
+<!DOCTYPE html> 
+<html>
+<body> 
+
+<h2>Press any key to start the presentation..</h2>
+
+<br>
+
+<video id="video" width="400">
+  <source src="/video/{{id}}" type="video/mp4">
+  Your browser does not support HTML video.
+</video>
+
+<br>
+
+<button onclick="fullscreen()" type="button">Fullscreen</button>
+
+<script> 
+var vid = document.getElementById("video"); 
+const keyframes = {{keyframes|safe}};
+const keyframesOriginal = {{keyframes|safe}};
+
+document.onkeydown = function() {playVid()};
+vid.ontimeupdate = function() {check()};
+
+    function playVid() {
+      if (!vid.ended) { 
+        vid.play(); 
+      }
+    } 
+
+    function fullscreen() {
+      console.log("Fullscreen!")
+
+      if (vid.requestFullscreen) {
+        vid.requestFullscreen();
+      } else if (vid.webkitRequestFullscreen) { /* Safari */
+        vid.webkitRequestFullscreen();
+      } else if (vid.msRequestFullscreen) { /* IE11 */
+        vid.msRequestFullscreen();
+      }
+    }
+    
+    function reset() {
+      console.log("Reseting!")
+      const keyframes = keyframesOriginal
+    }
+
+    function check() {
+      var pos = Math.floor(vid.currentTime).toString()
+
+      console.log(pos);
+      console.log(keyframes.indexOf(pos));
+
+      if (keyframes.indexOf(pos) > -1) {
+        console.log("--PAUSE");
+        vid.pause();
+        keyframes[keyframes.indexOf(pos)] = "done";
+      }
+    } 
+    </script> 
+
+</body>
+
+<style>
+  video::-webkit-media-controls {
+  display:none !important;
+  }
+</style>
+
+</html>
