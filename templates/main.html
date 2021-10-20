@@ -23,10 +23,12 @@ const keyframes = {{keyframes|safe}};
 const keyframesOriginal = {{keyframes|safe}};
 
 document.onkeydown = function() {playVid()};
+vid.addEventListener('click', playVid);
 vid.ontimeupdate = function() {check()};
 
     function playVid() {
-      if (!vid.ended) { 
+      if (!vid.ended) {
+        console.log("Resuming..") 
         vid.play(); 
       }
     } 
